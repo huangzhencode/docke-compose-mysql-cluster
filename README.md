@@ -11,7 +11,7 @@ docker network create hz-mysql --subnet 172.40.0.0/16
 
 2.构建mysql主从
 ```sh
-git clone https://github.com/huangzhencode/docke-compose-mysql-cluster.git
+git clone https://github.com/huangzhencode/docker-compose-mysql-cluster.git
 cd docke-compose-mysql-cluster/
 ./build.sh
 ```
