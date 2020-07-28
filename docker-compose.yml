@@ -1,0 +1,35 @@
+version: '3'
+services:
+  mysql_M1:
+    image: mysql:5.7
+    env_file:
+      - ./master/mysql_master.env
+    container_name: "mysql_M1"
+    restart: "always"
+    ports:
+      - 33061:3306
+    volumes:
+      - ./master/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./master/data:/var/lib/mysql
+    networks:
+      - hz-mysql
+
+  mysql_S1:
+    image: mysql:5.7
+    env_file:
+      - ./slave/mysql_slave.env
+    container_name: "mysql_S1"
+    restart: "always"
+    ports:
+      - 33062:3306
+    depends_on:
+      - mysql_M1
+    volumes:
+      - ./slave/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./slave/data:/var/lib/mysql
+    networks:
+      - hz-mysql
+
+networks:
+  hz-mysql:
+    external: true
